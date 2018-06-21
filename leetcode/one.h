@@ -14,5 +14,8 @@ namespace one {
 		ListNode* addTwoNumbers(ListNode* l1, ListNode* l2);
 		int lengthOfLongestSubstring(string s);
 		double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2);
+		string longestPalindrome(string s);
+	private:
+		int judge(string s, int left, int right);
 	};
 }

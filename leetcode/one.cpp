@@ -141,7 +141,7 @@ double one::Solution::findMedianSortedArrays(vector<int>& n1, vector<int>& n2) {
 	//防止出现负数 j=mid-i; nums1.size必须小于等于nums2.size
 	
 
-
+	return 0.0;
 	/*
 	* n的复杂度
 	vector<int>::iterator it1=nums1.begin();
@@ -178,4 +178,35 @@ double one::Solution::findMedianSortedArrays(vector<int>& n1, vector<int>& n2) {
 
 	*/
 
+}
+string one::Solution::longestPalindrome(string s) {
+
+	int maxLen = 0;
+	int startIndex = 0;
+	for (int i = 0; i < s.size(); i++)
+	{
+		int len1 = judge(s, i, i);
+		int len2 = judge(s, i, i + 1);
+		int len = len1 > len2 ? len1 : len2;
+		if (len > maxLen) {
+			maxLen = len;
+			startIndex = i - (len - 1) / 2;
+		}
+	}
+	return s.substr(startIndex, maxLen);
+
+}
+int one::Solution::judge(string s, int left, int right) {
+	while (left >= 0 && right < s.size())
+	{
+		if (s.at(left) == s.at(right))
+		{
+			left--;
+			right++;
+		}
+		else {
+			return right - left;
+		}
+	}
+	return right - left - 1;
 }
