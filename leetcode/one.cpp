@@ -275,3 +275,15 @@ int one::Solution::myAtoi(string str) {
 
 
 }
+bool one::Solution::isPalindrome(int x) {
+	if (x < 0 || (x % 10 == 0 && x != 0)) {
+		return false;
+	}
+	int y = x;
+	int i = 0;
+	while (x != 0) {
+		i = i * 10 + x % 10;
+		x = x / 10;
+	}
+	return y == i;
+}

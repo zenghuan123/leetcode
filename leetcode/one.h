@@ -17,6 +17,7 @@ namespace one {
 		string longestPalindrome(string s);
 		int reverse(int x);
 		int myAtoi(string str);
+		bool isPalindrome(int x);
 	private:
 		int judge(string s, int left, int right);
 	};
