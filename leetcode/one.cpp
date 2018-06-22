@@ -231,3 +231,47 @@ int one::Solution::reverse(int x) {
 	return result;
 
 }
+int one::Solution::myAtoi(string str) {
+	int result = 0;
+	bool first = true;
+	bool minus= false;
+	for (int i = 0; i < str.size(); i++)
+	{
+		if (str.at(i) < 58 && str.at(i) >= 48) {
+			first = false;
+			int addition = (int)str.at(i) - 48;
+			//边界返回值取巧了
+			if (result > INT_MAX / 10 || (result == INT_MAX / 10 && addition>7))
+			{
+				if (minus) {
+					
+					return INT_MIN;
+				}
+				else {
+					return INT_MAX;
+				}
+				
+			}
+			result = result * 10 + addition;
+		}
+		else if (str.at(i) == ' '&&first)
+		{
+			continue;
+		}else if (str.at(i) == '-'&&first) {
+			minus = true;
+			first = false;
+		}
+		else if (str.at(i) == '+'&&first) {
+			first = false;
+		}else  {
+			first = false;
+			break;
+		}
+	}
+	if (minus)
+		return -result;
+	else
+		return result;
+
+
+}

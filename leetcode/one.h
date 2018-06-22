@@ -16,6 +16,7 @@ namespace one {
 		double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2);
 		string longestPalindrome(string s);
 		int reverse(int x);
+		int myAtoi(string str);
 	private:
 		int judge(string s, int left, int right);
 	};
