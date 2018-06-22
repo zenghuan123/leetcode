@@ -203,10 +203,31 @@ int one::Solution::judge(string s, int left, int right) {
 		{
 			left--;
 			right++;
+			continue;
 		}
 		else {
-			return right - left;
+			break;
 		}
 	}
 	return right - left - 1;
+}
+int one::Solution::reverse(int x) {
+
+	int result=0;
+	do {
+		int i = x % 10;
+		if (result > INT_MAX / 10 || (result == INT_MAX / 10 && i>7))
+		{
+			return 0;
+		}
+		if (result < INT_MIN / 10 || (result == INT_MIN / 10&&i<-8))
+		{
+			return 0;
+		}
+		result = result * 10;
+		result += i;
+		x = x / 10;
+	} while (x!= 0);
+	return result;
+
 }
