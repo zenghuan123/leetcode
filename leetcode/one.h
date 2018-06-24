@@ -18,7 +18,9 @@ namespace one {
 		int reverse(int x);
 		int myAtoi(string str);
 		bool isPalindrome(int x);
+		bool isMatch(string s, string p);
 	private:
 		int judge(string s, int left, int right);
+		bool match(string s, int startIndex, string simpleP);
 	};
 }

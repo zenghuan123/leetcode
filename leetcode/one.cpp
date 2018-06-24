@@ -287,3 +287,107 @@ bool one::Solution::isPalindrome(int x) {
 	}
 	return y == i;
 }
+bool one::Solution::isMatch(string s, string p) {
+	vector<string> vec;
+	int i = -1;
+	int j = 0;
+	bool up = true;
+	while (j < p.size())
+	{
+		char temp[3];
+
+		if (j + 1 < p.size()&& p.at(j + 1) == '*')
+		{
+
+			temp[0] = p.at(j);
+			temp[1] = p.at(j+1);
+			temp[2] = '\0';
+			vec.push_back(temp);
+			i++;
+			j++;
+			j++;
+			up = true;
+			continue;
+		}
+		else 
+		{
+			if (up) {
+				vec.push_back(string(""));
+				i++;
+				up=false;
+			}
+			temp[0] = p.at(j);
+			temp[1] = '\0';
+			temp[2] = '\0';
+			string str(temp);
+			vec.at(i).append(str);
+			j++;
+		}
+		
+	}
+
+	i = 0; j = 0;
+	while (true) 
+	{
+		if (i >= vec.size()) {
+			return j ==s.size();
+		}
+		if (j >= s.size()) {
+			i++;
+			for (; i < vec.size(); i++) {
+				string temp = vec.at(i);
+				if (temp.at(temp.size() - 1) != '*') {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		bool haveStar = vec.at(i).at(vec.at(i).size() - 1) == '*';
+		if (match(s, j,vec.at(i)))
+		{
+			j=j+ vec.at(i).size()-haveStar;
+			if (haveStar) {
+				continue;
+			}
+			else {
+				i++;
+				continue;
+			}
+		}
+		else if(haveStar) {
+			
+			i++;
+			continue;
+		}
+		else {
+			return false;
+		}
+	}
+	return true;
+}
+bool one::Solution::match(string s,int startIndex,string simpleP){
+	int i = 0;
+	int addtion = simpleP.at(simpleP.size() - 1) == '*' ? 1 : 0;
+	while (i<simpleP.size()-addtion) {
+		if (simpleP.at(i) == '.') 
+		{
+			i++;
+		}else
+		{
+			if (i + startIndex >= s.size()) {
+				return false;
+			}
+			if (simpleP.at(i)==s.at(i+startIndex))
+			{
+				i++;
+				continue;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
