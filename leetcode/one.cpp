@@ -288,6 +288,42 @@ bool one::Solution::isPalindrome(int x) {
 	return y == i;
 }
 bool one::Solution::isMatch(string s, string p) {
+	/**
+	*采用 动态规划
+	* f(i,j)是s从i到最后，p从j到最后是否匹配的值
+	*firstMatch=s[i]==p[j]||p[j]=='.' 超过数组范围返回false
+	*如果 j+1不是*的话
+	*f(i,j)=firstMatch&&f(i+1,j+1)
+	*j+1是*的话
+	*f(i,j)=(firstMatch&&f(i+1,j))
+	*||f(i+1,j+2)
+	*/
+	bool **dp = new bool*[s.length() + 1];
+	for (int i = 0; i < s.length() + 1; i++) {
+		dp[i] = new bool[p.length() + 1];
+	}
+	for (int i = 0; i < s.length() + 1; i++)
+		for (int j = 0; j < p.length() + 1; j++)
+			dp[i][j] = false;
+	//	; new bool[text.length() + 1][pattern.length() + 1];
+	dp[s.length()][p.length()] = true;
+
+	for (int i = s.length(); i >= 0; i--) {
+		for (int j = p.length() - 1; j >= 0; j--) {
+			bool first_match = (i < s.length() &&
+				(p.at(j) == s.at(i) ||
+					p.at(j) == '.'));
+			if (j + 1 < p.length() && p.at(j + 1) == '*') {
+				dp[i][j] = dp[i][j + 2] || first_match && dp[i + 1][j];
+			}
+			else {
+				dp[i][j] = first_match && dp[i + 1][j + 1];
+			}
+		}
+	}
+	return dp[0][0];
+
+	/*
 	vector<string> vec;
 	int i = -1;
 	int j = 0;
@@ -370,6 +406,7 @@ bool one::Solution::isMatch(string s, string p) {
 		}
 	}
 	return true;
+	*/
 }
 bool one::Solution::match(string s, int startIndex, string simpleP) {
 	int i = 0;
