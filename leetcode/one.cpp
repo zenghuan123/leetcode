@@ -298,7 +298,6 @@ bool one::Solution::isMatch(string s, string p) {
 
 		if (j + 1 < p.size()&& p.at(j + 1) == '*')
 		{
-
 			temp[0] = p.at(j);
 			temp[1] = p.at(j+1);
 			temp[2] = '\0';
@@ -311,16 +310,22 @@ bool one::Solution::isMatch(string s, string p) {
 		}
 		else 
 		{
-			if (up) {
-				vec.push_back(string(""));
-				i++;
-				up=false;
+		
+			if(!
+				(i >= 0 &&vec.at(i).size()>1&&vec.at(i).at(1)=='*'&&vec.at(i).at(0) == p.at(j))
+				){
+				if (up) {
+					vec.push_back(string(""));
+					i++;
+					up = false;
+				}
+				temp[0] = p.at(j);
+				temp[1] = '\0';
+				temp[2] = '\0';
+				string str(temp);
+				vec.at(i).append(str);
 			}
-			temp[0] = p.at(j);
-			temp[1] = '\0';
-			temp[2] = '\0';
-			string str(temp);
-			vec.at(i).append(str);
+			
 			j++;
 		}
 		
@@ -366,7 +371,7 @@ bool one::Solution::isMatch(string s, string p) {
 	}
 	return true;
 }
-bool one::Solution::match(string s,int startIndex,string simpleP){
+bool one::Solution::match(string s, int startIndex, string simpleP) {
 	int i = 0;
 	int addtion = simpleP.at(simpleP.size() - 1) == '*' ? 1 : 0;
 	while (i<simpleP.size()-addtion) {
@@ -390,4 +395,40 @@ bool one::Solution::match(string s,int startIndex,string simpleP){
 		}
 	}
 	return true;
+}
+enum Result {
+	TRUE, FALSE
+};
+class Solution {
+	Result memo[][];
+
+	public bool isMatch(string text, string pattern) {
+		memo = new Result[text.length() + 1][pattern.length() + 1];
+		return dp(0, 0, text, pattern);
+	}
+
+	public boolean dp(int i, int j, String text, String pattern) {
+		if (memo[i][j] != null) {
+			return memo[i][j] == Result.TRUE;
+		}
+		boolean ans;
+		if (j == pattern.length()) {
+			ans = i == text.length();
+		}
+		else {
+			boolean first_match = (i < text.length() &&
+				(pattern.charAt(j) == text.charAt(i) ||
+					pattern.charAt(j) == '.'));
+
+			if (j + 1 < pattern.length() && pattern.charAt(j + 1) == '*') {
+				ans = (dp(i, j + 2, text, pattern) ||
+					first_match && dp(i + 1, j, text, pattern));
+			}
+			else {
+				ans = first_match && dp(i + 1, j + 1, text, pattern);
+			}
+		}
+		memo[i][j] = ans ? Result.TRUE : Result.FALSE;
+		return ans;
+	}
 }
