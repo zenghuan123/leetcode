@@ -24,6 +24,9 @@
     <ClInclude Include="one.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="two.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -33,6 +36,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="one.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="two.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
