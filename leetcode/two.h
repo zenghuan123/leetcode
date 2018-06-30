@@ -5,6 +5,7 @@ namespace two {
 	public:
 		int maxArea(vector<int>& height);
 		string intToRoman(int num);
+		int romanToInt(string s);
 	};
 
 }

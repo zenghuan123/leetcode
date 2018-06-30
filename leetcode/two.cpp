@@ -43,3 +43,31 @@ string two::Solution::intToRoman(int num) {
 	}
 	return result;
 }
+int two::Solution::romanToInt(string s) {
+
+
+
+		//IV,IX, XL,XC, CD,CM
+	int result = 0;
+	int lastAddtion = 0;
+	for (int i = 0; i < s.size(); i++)
+	{
+		int addtion = 0;
+		switch (s.at(i)) {
+		case 'I':addtion = 1; break;
+		case 'V':addtion = 5; break;
+		case 'X':addtion = 10; break;
+		case 'L':addtion = 50; break;
+		case 'C':addtion = 100; break;
+		case 'D':addtion = 500; break;
+		case 'M':addtion = 1000; break;
+		}
+		if (lastAddtion < addtion) {
+			result -= lastAddtion * 2;
+		}
+		lastAddtion = addtion;
+		result += addtion;
+	}
+	return result;
+
+}
