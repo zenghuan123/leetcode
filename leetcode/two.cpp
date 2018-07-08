@@ -45,9 +45,6 @@ string two::Solution::intToRoman(int num) {
 }
 int two::Solution::romanToInt(string s) {
 
-
-
-		//IV,IX, XL,XC, CD,CM
 	int result = 0;
 	int lastAddtion = 0;
 	for (int i = 0; i < s.size(); i++)
@@ -67,6 +64,19 @@ int two::Solution::romanToInt(string s) {
 		}
 		lastAddtion = addtion;
 		result += addtion;
+	}
+	return result;
+
+}
+string two::Solution::longestCommonPrefix(vector<string>& strs) {
+	//这个题目是从开始处找到相同的字符串
+	if (strs.size() == 0)
+		return string("");
+	string result = strs.at(0);
+	for (int i = 1; i < strs.size(); i++) {
+		while (strs[i].find(result.c_str())!=0) {
+			result.erase(result.size() - 1, 1);
+		}
 	}
 	return result;
 
